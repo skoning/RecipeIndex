@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import java.awt.Insets;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 
 public class IngredientAdd {
 	
-	public JFrame frame = new JFrame();
+	public JDialog frame = new JDialog();
 	
 	public JButton AddButton = new JButton();
 	
@@ -30,9 +30,11 @@ public class IngredientAdd {
 		frame.setTitle("Ingrediënten toevoegen");
 		frame.setSize(200, 220);
 		frame.setVisible(true);
+		
 	}
 	
-	public int lastInsertId = 0;
+	public static int lastInsertId = 0;
+	
 	public IngredientAdd(int lastRecipeId) {
 		lastInsertId = lastRecipeId;
 		CreateUI();

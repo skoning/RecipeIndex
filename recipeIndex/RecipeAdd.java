@@ -18,12 +18,17 @@ import com.mysql.jdbc.Statement;
 public class RecipeAdd implements ActionListener {
 
 	boolean hasEvent = false;
-	JFrame frame = new JFrame();
+	
+	JDialog frame = new JDialog();
 	JTextField nameField = new JTextField();
 	JSpinner tabSpinner = new JSpinner();
 	JSpinner tasteSpinner = new JSpinner();
 	JButton addButton = new JButton();
+	
+	public static ResultSet rs = null;
+	
 	public void ReturnPressed () {
+		
 		try {
 			
 			if(nameField.getText().isEmpty()) {
@@ -38,15 +43,16 @@ public class RecipeAdd implements ActionListener {
 			SpinnerNumberModel tastemodel = (SpinnerNumberModel)tasteSpinner.getModel();
 			query.setInt(3, tastemodel.getNumber().intValue() );
 			query.executeUpdate();
-			ResultSet rs = query.getGeneratedKeys();
-
+			frame.setVisible(false);
+			
+			rs = query.getGeneratedKeys();
+			
 			rs.beforeFirst();
 			if( rs.next() ){
 				
-				System.out.println(rs.getInt(1));
+				new IngredientAdd(rs.getInt(1)).CreateUI();
+				
 			}
-
-			new IngredientAdd(rs.getInt(1));
 			query.close();
 		} catch ( SQLException e ) {
 			System.out.println(e.getMessage());
@@ -109,11 +115,13 @@ public class RecipeAdd implements ActionListener {
 		Dimension addButtonSizeDimension = addButton.getPreferredSize();
 		addButton.setBounds(100 - addButton.getWidth(), 100 - addButton.getHeight(),addButtonSizeDimension.width, addButtonSizeDimension.height);
 		
+		JFrame frame = new JFrame();
+		RecipeUi.desktop.add(frame);
 		frame.getRootPane().setDefaultButton(addButton);
 		
 		// Frame
 		frame.setTitle("Recipe Index : Toevoegen");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		frame.setContentPane(pane);
 		frame.setSize(300, 220);
 		frame.setVisible(true);
