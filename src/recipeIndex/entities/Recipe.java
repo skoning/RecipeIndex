@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
+import ui.AddRecipe;
+
 public final class Recipe
 {
 
@@ -16,13 +18,21 @@ public final class Recipe
   public String name;
   public int tab;
 
+  public static Recipe CreateNew( String name, int tab, AddRecipe ui ) throws ClassNotFoundException, SQLException, IOException {
+    if(null == ui) {
+      return CreateNew(name, tab);
+    }
+    
+    
+    return null;
+  }
   /**
    * @param name
    * @throws ClassNotFoundException
    * @throws IOException 
    * @throws Exception
    */
-  public static Recipe CreateNew(String name, int tab) throws 
+  public static Recipe CreateNew( String name, int tab ) throws 
     ClassNotFoundException,
     SQLException, 
     IOException

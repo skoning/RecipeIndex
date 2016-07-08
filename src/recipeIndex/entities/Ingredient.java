@@ -1,5 +1,6 @@
 package recipeIndex.entities;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -7,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 public class Ingredient
 {
@@ -22,7 +22,8 @@ public class Ingredient
   
   public static Ingredient CreateNew( Recipe recipe ) throws 
     ClassNotFoundException, 
-    SQLException
+    SQLException, 
+    IOException
   {
    
     Class.forName("org.sqlite.JDBC");
@@ -44,9 +45,10 @@ public class Ingredient
     Ingredient i = new Ingredient();
     System.out.println("Add ingredient");
     System.out.print("Name: ");
-    Scanner in = new Scanner(System.in);
-    while(in.hasNext()) {
-      i.name = in.next();
+    int c;
+    StringBuilder name = new StringBuilder();
+    while( ( c = System.in.read() ) != 13 ) {
+      name.append((char) c);
       break;
     }
     i.recipe = recipe.id;
